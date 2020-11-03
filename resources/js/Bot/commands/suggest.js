@@ -3,6 +3,7 @@
 const Discord = require('discord.js');
 const MWDB = require('../bot-shard.js');
 const config = MWDB.config;
+const hooks = MWDB.hooks;
 const func = require('../modules/functions.js');
 const embed = require('../modules/embed.js');
 const youtubedl = require('youtube-dl');
@@ -70,7 +71,8 @@ MWDB.registerCommand('suggest', 'default', (message, bot, args, placeholder) => 
                         throw err;
                     }
                     // Video moved to destination folder
-                    embed.ytdl(message, placeholder, info, 'Downloaded!', config.url + '/storage/mp3/' + filename + '.mp3');
+                    let returnedEmbed = embed.ytdl(message, placeholder, info, 'Downloaded!', config.url + '/storage/mp3/' + filename + '.mp3');
+                    hooks.suggestions.send('', returnedEmbed);
                     // embed.normal(placeholder, 'success', 'Downloaded\n\n**File:** ' + config.url + '/storage/mp3/' + filename + '.mp3\n**Duration:** ' + moment.duration(moment().diff(start)).asSeconds() + 'sec\n\n**Videosize:** ' + numeral(info.filesize).format('0.00b') + '\n**Views:** ' + numeral(info.view_count).format('0a') + '\n**File:** ' + filename + '.mp3', info.title)
 
                     console.log('[DEBUG] ' + filename + '.mp3 moved to destination folder');
