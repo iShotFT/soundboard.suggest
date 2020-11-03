@@ -71,7 +71,7 @@ MWDB.registerCommand('suggest', 'default', (message, bot, args, placeholder) => 
                         throw err;
                     }
                     // Video moved to destination folder
-                    let returnedEmbed = embed.ytdl(message, placeholder, info, 'Downloaded!', config.url + '/storage/mp3/' + filename + '.mp3');
+                    let returnedEmbed = embed.ytdl(message, placeholder, info, 'Downloaded in ' + moment.duration(moment().diff(start)).humanize() + '!', config.url + '/storage/mp3/' + filename + '.mp3');
                     hooks.suggestions.send('', returnedEmbed);
                     // embed.normal(placeholder, 'success', 'Downloaded\n\n**File:** ' + config.url + '/storage/mp3/' + filename + '.mp3\n**Duration:** ' + moment.duration(moment().diff(start)).asSeconds() + 'sec\n\n**Videosize:** ' + numeral(info.filesize).format('0.00b') + '\n**Views:** ' + numeral(info.view_count).format('0a') + '\n**File:** ' + filename + '.mp3', info.title)
 
