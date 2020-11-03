@@ -1,0 +1,9 @@
+{
+    "default": "#6D5CAE",
+    "success": "#28A745",
+    "danger": "#F55753",
+    "warning": "#F8D053",
+    "hotpink": "#FF69B4",
+    "gray": "#C0C6C8",
+    "premium": "#FFCC00"
+}
