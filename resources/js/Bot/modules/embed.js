@@ -99,7 +99,7 @@ let ytdl = (message, placeholder, ytinfo, description, finished = false) => {
 
     embed.addField('Views', numeral(ytinfo.view_count).format('0a'), true);
     embed.addField('Uploaded at', ytinfo.upload_date, true);
-    embed.addField('Format', ytinfo.format_note, true);
+    embed.addField('Format', 'Best audio', true);
 
     if (finished !== false) {
         // Download URL if finished !== false

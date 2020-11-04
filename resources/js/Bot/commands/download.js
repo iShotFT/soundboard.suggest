@@ -21,7 +21,7 @@ let arguments = {
     }
 };
 
-MWDB.registerCommand('suggest', 'default', (message, bot, args, placeholder) => {
+MWDB.registerCommand('download', 'default', (message, bot, args, placeholder) => {
     let input = func.validate(arguments, args);
 
     // Handle errors if any
@@ -64,11 +64,6 @@ MWDB.registerCommand('suggest', 'default', (message, bot, args, placeholder) => 
                 // Video downloaded and converted to mp3
                 console.log('[DEBUG] ' + input.processed.url + ' downloaded & converted to mp3');
 
-                // TODO: Convert (webp or other) the thumbnail to jpg
-                // if (info.thumbnails.length && info.thumbnails.slice(-1)[0] !== undefined) {
-                //     // sharp(info.thumbnails.slice(-1)[0].url).toFile(config.path.mp3 + '/' + filename + '.jpg');
-                // }
-
                 fs.rename(filename + '.mp3', config.path.mp3 + '/' + filename + '.mp3', (err) => {
                     if (err) {
                         embed.error(null, placeholder, 'Error (003) while downloading the video, please try again... (full error logged to console)', 'Something went wrong', 'suggest');
@@ -76,8 +71,6 @@ MWDB.registerCommand('suggest', 'default', (message, bot, args, placeholder) => 
                     }
                     // Video moved to destination folder
                     let returnedEmbed = embed.ytdl(message, placeholder, info, 'Downloaded in ' + moment.duration(moment().diff(start)).humanize() + '!', config.url + '/storage/mp3/' + filename + '.mp3');
-                    hooks.suggestions.send('', returnedEmbed);
-                    // embed.normal(placeholder, 'success', 'Downloaded\n\n**File:** ' + config.url + '/storage/mp3/' + filename + '.mp3\n**Duration:** ' + moment.duration(moment().diff(start)).asSeconds() + 'sec\n\n**Videosize:** ' + numeral(info.filesize).format('0.00b') + '\n**Views:** ' + numeral(info.view_count).format('0a') + '\n**File:** ' + filename + '.mp3', info.title)
 
                     console.log('[DEBUG] ' + filename + '.mp3 moved to destination folder');
                 });
@@ -87,4 +80,4 @@ MWDB.registerCommand('suggest', 'default', (message, bot, args, placeholder) => 
         console.log(e);
         embed.error(null, placeholder, 'Error (000) while downloading the video, please try again... (full error logged to console)', 'Something went wrong', 'suggest');
     }
-}, ['sugg'], 'Suggest a YouTube URL to the bot owner, the bot will then download an MP3 of the song and place it in the channel you launched this command in while also forwarding it to the bot owner. By default we\'ll always attempt to download the best audio quality available.', '<url>', ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']);
+}, ['dl', 'down', 'save'], 'Simply download a YouTube URL using the bot (without suggesting it to the bot owner), the bot will then download an MP3 of the song and place it in the channel you launched this command in. By default we\'ll always attempt to download the best audio quality available.', '<url>', ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']);
