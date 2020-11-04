@@ -57,7 +57,7 @@ MWDB.registerCommand('suggest', 'default', (message, bot, args, placeholder) => 
 
             embed.ytdl(message, placeholder, info, 'Downloading...')
 
-            youtubedl.exec(input.processed.url, ['-x', '--extract-audio', '--audio-format', 'mp3', '--output', '' + filename + '.%(ext)s'], {}, function (err, output) {
+            youtubedl.exec(input.processed.url, ['-f', 'best', '-x', '--extract-audio', '--audio-format', 'mp3', '--output', '' + filename + '.%(ext)s'], {}, function (err, output) {
                 if (err) {
                     embed.error(null, placeholder, 'Error (002) while downloading the video, please try again... (full error logged to console)', 'Something went wrong', 'suggest');
                     throw err;
